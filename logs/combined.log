@@ -1,0 +1,39 @@
+{"level":"info","message":"WalletService initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:06:21.037Z"}
+{"level":"info","message":"Notification queue initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:06:21.257Z"}
+{"level":"info","message":"Server running on port 3000","port":3000,"service":"gift-coupon-app","timestamp":"2025-09-07T09:06:21.270Z","version":"1.0.0"}
+{"level":"info","message":"Shutting down notification queue...","service":"gift-coupon-app","timestamp":"2025-09-07T09:07:43.643Z"}
+{"level":"info","message":"WalletService initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:08:51.709Z"}
+{"level":"info","message":"Notification queue initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:08:51.921Z"}
+{"environment":"development","level":"info","message":"Server running on port 3000","port":3000,"service":"gift-coupon-app","timestamp":"2025-09-07T09:08:51.934Z","version":"1.0.0"}
+{"level":"info","message":"Shutting down notification queue...","service":"gift-coupon-app","timestamp":"2025-09-07T09:11:35.323Z"}
+{"level":"info","message":"WalletService initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:18:35.325Z"}
+{"level":"info","message":"Notification queue initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:18:35.538Z"}
+{"environment":"development","level":"info","message":"Server running on port 3000","port":3000,"service":"gift-coupon-app","timestamp":"2025-09-07T09:18:35.549Z","version":"1.0.0"}
+{"duration":"2ms","ip":"::1","level":"info","message":"HTTP Request","method":"GET","service":"gift-coupon-app","status":200,"timestamp":"2025-09-07T09:18:40.514Z","url":"/health","userAgent":"curl/8.7.1"}
+{"level":"info","message":"Shutting down notification queue...","service":"gift-coupon-app","timestamp":"2025-09-07T09:19:16.508Z"}
+{"level":"info","message":"WalletService initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:19:23.611Z"}
+{"level":"info","message":"Notification queue initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:19:23.835Z"}
+{"environment":"development","level":"info","message":"Server running on port 3000","port":3000,"service":"gift-coupon-app","timestamp":"2025-09-07T09:19:23.848Z","version":"1.0.0"}
+{"level":"info","message":"Shutting down notification queue...","service":"gift-coupon-app","timestamp":"2025-09-07T09:22:54.722Z"}
+{"level":"info","message":"WalletService initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:23:17.185Z"}
+{"level":"info","message":"Notification queue initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:23:17.416Z"}
+{"environment":"development","level":"info","message":"Server running on port 3000","port":3000,"service":"gift-coupon-app","timestamp":"2025-09-07T09:23:17.428Z","version":"1.0.0"}
+{"level":"info","message":"Shutting down notification queue...","service":"gift-coupon-app","timestamp":"2025-09-07T09:23:26.021Z"}
+{"level":"info","message":"WalletService initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:23:38.868Z"}
+{"level":"info","message":"Notification queue initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:23:39.088Z"}
+{"environment":"development","level":"info","message":"Server running on port 3000","port":3000,"service":"gift-coupon-app","timestamp":"2025-09-07T09:23:39.101Z","version":"1.0.0"}
+{"level":"info","message":"Shutting down notification queue...","service":"gift-coupon-app","timestamp":"2025-09-07T09:24:34.595Z"}
+{"level":"info","message":"WalletService initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:28:25.883Z"}
+{"level":"info","message":"Notification queue initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:28:26.109Z"}
+{"environment":"development","level":"info","message":"Server running on port 3000","port":3000,"service":"gift-coupon-app","timestamp":"2025-09-07T09:28:26.121Z","version":"1.0.0"}
+{"duration":"3ms","ip":"::1","level":"info","message":"HTTP Request","method":"GET","service":"gift-coupon-app","status":200,"timestamp":"2025-09-07T09:29:08.090Z","url":"/health","userAgent":"curl/8.7.1"}
+{"duration":"1ms","ip":"::1","level":"info","message":"HTTP Request","method":"GET","service":"gift-coupon-app","status":200,"timestamp":"2025-09-07T09:32:21.595Z","url":"/health","userAgent":"curl/8.7.1"}
+{"level":"info","message":"WalletService initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:32:33.184Z"}
+{"level":"info","message":"Notification queue initialized","service":"gift-coupon-app","timestamp":"2025-09-07T09:32:33.385Z"}
+{"environment":"development","level":"info","message":"Server running on port 3000","port":3000,"service":"gift-coupon-app","timestamp":"2025-09-07T09:32:33.400Z","version":"1.0.0"}
+{"duration":"2ms","ip":"::1","level":"warn","message":"HTTP Request","method":"GET","service":"gift-coupon-app","status":404,"timestamp":"2025-09-07T09:33:11.531Z","url":"/","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+{"duration":"1ms","ip":"::1","level":"warn","message":"HTTP Request","method":"GET","service":"gift-coupon-app","status":404,"timestamp":"2025-09-07T09:33:11.651Z","url":"/","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+{"duration":"3ms","ip":"::1","level":"warn","message":"HTTP Request","method":"GET","service":"gift-coupon-app","status":404,"timestamp":"2025-09-07T09:35:55.889Z","url":"/","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+{"error":"\nInvalid `prisma.coupon.count()` invocation in\n/Users/nmalhotr/Desktop/Cursor_Coupon_App/src/server/routes/admin.ts:34:21\n\n  31   recentRedemptions,\n  32   failedNotifications,\n  33 ] = await Promise.all([\n→ 34   prisma.coupon.count(\nerror: Environment variable not found: DATABASE_URL.\n  -->  schema.prisma:10\n   | \n 9 |   provider = \"postgresql\"\n10 |   url      = env(\"DATABASE_URL\")\n   | \n\nValidation Error Count: 1","level":"error","message":"Failed to get dashboard data","service":"gift-coupon-app","timestamp":"2025-09-07T09:36:04.856Z"}
+{"duration":"28ms","ip":"::1","level":"warn","message":"HTTP Request","method":"GET","service":"gift-coupon-app","status":500,"timestamp":"2025-09-07T09:36:04.856Z","url":"/dashboard","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+{"level":"info","message":"Shutting down notification queue...","service":"gift-coupon-app","timestamp":"2025-09-07T09:36:20.589Z"}

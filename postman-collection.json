@@ -1,0 +1,503 @@
+{
+  "info": {
+    "name": "Gift Coupon API",
+    "description": "Complete API collection for Gift Coupon App",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    },
+    {
+      "key": "couponCode",
+      "value": "TEST1234",
+      "type": "string"
+    },
+    {
+      "key": "couponId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "paymentIntentId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Coupons",
+      "item": [
+        {
+          "name": "Create Coupon",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 2500,\n  \"recipientEmail\": \"recipient@example.com\",\n  \"recipientPhone\": \"+1234567890\",\n  \"title\": \"Coffee Gift\",\n  \"message\": \"Enjoy your morning coffee!\",\n  \"senderEmail\": \"sender@example.com\",\n  \"senderName\": \"John Doe\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/coupons",
+              "host": ["{{baseUrl}}"],
+              "path": ["coupons"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('couponId', response.data.coupon.id);",
+                  "    pm.collectionVariables.set('paymentIntentId', response.data.paymentIntent.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Coupon by Code",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/coupons/claim/{{couponCode}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["coupons", "claim", "{{couponCode}}"]
+            }
+          }
+        },
+        {
+          "name": "Claim Coupon",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"recipientEmail\": \"recipient@example.com\",\n  \"recipientName\": \"Jane Doe\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/coupons/claim/{{couponCode}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["coupons", "claim", "{{couponCode}}"]
+            }
+          }
+        },
+        {
+          "name": "Redeem Coupon (Partial)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 1000,\n  \"merchantName\": \"Test Coffee Shop\",\n  \"merchantId\": \"merchant_123\",\n  \"transactionId\": \"txn_456\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/coupons/redeem/{{couponCode}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["coupons", "redeem", "{{couponCode}}"]
+            }
+          }
+        },
+        {
+          "name": "Redeem Coupon (Full)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 1500,\n  \"merchantName\": \"Test Store\",\n  \"merchantId\": \"merchant_789\",\n  \"transactionId\": \"txn_101112\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/coupons/redeem/{{couponCode}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["coupons", "redeem", "{{couponCode}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Coupon by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/coupons/{{couponId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["coupons", "{{couponId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Create Payment Intent",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 2500,\n  \"currency\": \"USD\",\n  \"metadata\": {\n    \"couponId\": \"test-coupon-id\",\n    \"description\": \"Test payment\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments/create-intent",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "create-intent"]
+            }
+          }
+        },
+        {
+          "name": "Confirm Payment Intent",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/payments/confirm/{{paymentIntentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "confirm", "{{paymentIntentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Payment Intent",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/payments/{{paymentIntentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "{{paymentIntentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Refund Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 1000\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments/refund/{{paymentIntentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "refund", "{{paymentIntentId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Wallet",
+      "item": [
+        {
+          "name": "Get Wallet Passes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/wallet/passes/{{couponId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "passes", "{{couponId}}"]
+            }
+          }
+        },
+        {
+          "name": "Generate Apple Wallet Pass",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/wallet/apple/{{couponId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "apple", "{{couponId}}"]
+            }
+          }
+        },
+        {
+          "name": "Generate Google Wallet Pass",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/wallet/google/{{couponId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "google", "{{couponId}}"]
+            }
+          }
+        },
+        {
+          "name": "Generate Both Wallet Passes",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/wallet/generate/{{couponId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "generate", "{{couponId}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Mock Apple Wallet Pass",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/wallet/mock-pass/{{couponCode}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["wallet", "mock-pass", "{{couponCode}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Get User Notifications",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/notifications/user/test-user-id?limit=20&offset=0",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", "user", "test-user-id"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "offset",
+                  "value": "0"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Notification by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/notifications/test-notification-id",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", "test-notification-id"]
+            }
+          }
+        },
+        {
+          "name": "Retry Failed Notification",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/notifications/test-notification-id/retry",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", "test-notification-id", "retry"]
+            }
+          }
+        },
+        {
+          "name": "Get Notification Statistics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/notifications/stats/overview",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", "stats", "overview"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Get Dashboard Overview",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/admin/dashboard",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "dashboard"]
+            }
+          }
+        },
+        {
+          "name": "Get Coupons (Admin)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/admin/coupons?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "coupons"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Users (Admin)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/admin/users?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "users"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Payments (Admin)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/admin/payments?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "payments"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Notifications (Admin)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/admin/notifications?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "notifications"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Retry All Failed Notifications",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/admin/notifications/retry-failed",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "notifications", "retry-failed"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "Stripe Webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "stripe-signature",
+                "value": "t=1234567890,v1=mock_signature"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"evt_test_webhook\",\n  \"object\": \"event\",\n  \"type\": \"payment_intent.succeeded\",\n  \"data\": {\n    \"object\": {\n      \"id\": \"pi_test_123456789\",\n      \"object\": \"payment_intent\",\n      \"amount\": 2500,\n      \"currency\": \"usd\",\n      \"status\": \"succeeded\",\n      \"metadata\": {\n        \"couponId\": \"test-coupon-id\"\n      }\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/webhooks/stripe",
+              "host": ["{{baseUrl}}"],
+              "path": ["webhooks", "stripe"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3000/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

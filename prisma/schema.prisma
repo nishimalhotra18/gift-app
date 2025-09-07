@@ -1,0 +1,178 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  phone     String?
+  firstName String?
+  lastName  String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  sentCoupons     Coupon[]     @relation("CouponSender")
+  receivedCoupons Coupon[]     @relation("CouponRecipient")
+  notifications   Notification[]
+
+  @@map("users")
+}
+
+model Coupon {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  amount      Int      // Amount in cents
+  balance     Int      // Remaining balance in cents
+  currency    String   @default("USD")
+  status      CouponStatus @default(PENDING)
+  title       String
+  message     String?
+  senderId    String
+  recipientId String?
+  recipientEmail String
+  recipientPhone  String?
+  expiresAt   DateTime?
+  claimedAt   DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  sender      User         @relation("CouponSender", fields: [senderId], references: [id])
+  recipient   User?        @relation("CouponRecipient", fields: [recipientId], references: [id])
+  redemptions Redemption[]
+  notifications Notification[]
+
+  @@map("coupons")
+}
+
+model Redemption {
+  id          String   @id @default(cuid())
+  couponId    String
+  amount      Int      // Amount redeemed in cents
+  merchantName String?
+  merchantId  String?
+  transactionId String?
+  status      RedemptionStatus @default(PENDING)
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  coupon      Coupon   @relation(fields: [couponId], references: [id], onDelete: Cascade)
+
+  @@map("redemptions")
+}
+
+model Notification {
+  id          String   @id @default(cuid())
+  userId      String?
+  couponId    String?
+  type        NotificationType
+  channel     NotificationChannel
+  status      NotificationStatus @default(PENDING)
+  subject     String?
+  content     String
+  recipient   String
+  sentAt      DateTime?
+  deliveredAt DateTime?
+  errorMessage String?
+  retryCount  Int      @default(0)
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  user        User?    @relation(fields: [userId], references: [id])
+  coupon      Coupon?  @relation(fields: [couponId], references: [id])
+
+  @@map("notifications")
+}
+
+model PaymentIntent {
+  id                String   @id @default(cuid())
+  stripePaymentIntentId String @unique
+  couponId          String?
+  amount            Int      // Amount in cents
+  currency          String   @default("USD")
+  status            PaymentStatus @default(PENDING)
+  metadata          Json?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("payment_intents")
+}
+
+model WalletPass {
+  id          String   @id @default(cuid())
+  couponId    String   @unique
+  applePassUrl String?
+  googlePassUrl String?
+  passData    Json?
+  status      WalletPassStatus @default(PENDING)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("wallet_passes")
+}
+
+enum CouponStatus {
+  PENDING
+  ACTIVE
+  REDEEMED
+  EXPIRED
+  CANCELLED
+}
+
+enum RedemptionStatus {
+  PENDING
+  APPROVED
+  DECLINED
+  REFUNDED
+}
+
+enum NotificationType {
+  COUPON_CREATED
+  COUPON_CLAIMED
+  COUPON_REDEEMED
+  COUPON_EXPIRED
+  PAYMENT_SUCCESS
+  PAYMENT_FAILED
+}
+
+enum NotificationChannel {
+  EMAIL
+  SMS
+  PUSH
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  DELIVERED
+  FAILED
+  BOUNCED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  CANCELLED
+  REFUNDED
+}
+
+enum WalletPassStatus {
+  PENDING
+  GENERATED
+  FAILED
+}
